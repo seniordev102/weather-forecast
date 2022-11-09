@@ -71,6 +71,7 @@ const LandingPage = () => {
       handleCityByCoordinates(location.lat, location.lon);
       setPosition({ lat: location.lat, lon: location.lon });
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

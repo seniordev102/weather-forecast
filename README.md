@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Weather Forecast App
 
 ### :telescope: Technologies
 
@@ -8,6 +6,26 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Axios](https://github.com/axios/axios)
+
+### :information_source: How To Use
+
+To clone and run this application, you'll need [Git](https://git-scm.com), [nodejs] + [yarn] or [npm]
+From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com:andrew-liu0114/weather-forecast.git
+
+# Go into the repository
+$ cd weather-forecast
+
+# Install dependencies for the frontend and run the server
+$ yarn install
+$ yarn start
+
+```
+
+---
 
 ## Available Scripts
 
