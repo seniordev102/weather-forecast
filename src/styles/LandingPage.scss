@@ -1,0 +1,562 @@
+#main {
+  width: 70%;
+  margin: auto;
+}
+
+.main-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30px 1fr 30px;
+  grid-template-areas: "content";
+}
+
+.background {
+  z-index: -10;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .img-background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.content {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "principal secondary";
+
+  grid-gap: 30px;
+
+  background-color: var(--content-bg);
+  backdrop-filter: blur(30px);
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+}
+
+.principal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  grid-area: principal;
+  .get-location {
+    background-color: var(--search-button-bg);
+    padding: 8px 15px;
+    justify-self: flex-start !important;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    span {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    &:hover {
+      background-color: var(--search-button-bg-hover);
+    }
+  }
+
+  .header {
+    width: 95%;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr 1fr;
+      grid-template-areas:
+        "input1"
+        "input2"
+        "extras";
+      .input-wrapper1 {
+        grid-area: input1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .input-wrapper2 {
+        grid-area: input2;
+        display: flex;
+        justify-content: center;
+
+        .posInput {
+          width: 35%;
+          height: 40px;
+          border: 2px solid #ffffff;
+          border-radius: 12px;
+          background: none;
+          padding: 10px 15px;
+          outline: none;
+          color: #ffffff;
+          font-size: 16px;
+          margin: 0 10px;
+
+          &::placeholder {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .extras {
+        grid-area: extras;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 0.5rem;
+      }
+
+      .snackbar {
+        color: red;
+        font-weight: 600;
+        font-size: 16px;
+        background-color: rgba(255, 255, 255, 0.582);
+        border-radius: 4px;
+        padding: 3px 10px;
+        margin-left: 5px;
+      }
+    }
+
+    .cityInput {
+      width: 90%;
+      height: 40px;
+      border: 2px solid #ffffff;
+      border-radius: 12px;
+      background: none;
+      padding: 10px 15px;
+      outline: none;
+      color: #ffffff;
+      font-size: 16px;
+
+      &::placeholder {
+        color: #ffffff;
+      }
+
+      &:focus {
+        & + .search-results {
+          visibility: visible;
+        }
+      }
+    }
+
+    .searchButton {
+      color: #ffffff;
+      background-color: var(--search-button-bg);
+      height: 42px;
+      width: 42px;
+      border: none;
+      border-radius: 12px;
+      font-size: 22px;
+      margin-left: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: var(--search-button-bg-hover);
+      }
+    }
+
+    .search-results {
+      position: absolute;
+      left: -2px;
+      top: 50px;
+      width: 85%;
+      padding: 5px;
+      justify-content: center;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      z-index: 10;
+      visibility: hidden;
+      transition: visibility 0.1s;
+
+      .result-item {
+        width: 90%;
+        padding: 10px;
+        font-size: 10px;
+        background-color: rgba(255, 255, 255, 0.6);
+        transition: background-color 0.2s;
+        cursor: pointer;
+        justify-content: flex-start;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        &:first-child {
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: 12px;
+          border-bottom-right-radius: 12px;
+          border-bottom: none;
+        }
+
+        .result-flag {
+          max-width: 30px;
+          border-radius: 4px;
+          margin-right: 8px;
+        }
+
+        .result-city {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .result {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--color-text-light);
+    padding: 20px 0px;
+
+    img {
+      height: 100px;
+    }
+
+    h1 {
+      position: relative;
+      font-size: 80px;
+      color: #ffffff;
+
+      span {
+        font-size: 20px;
+        margin-left: 10px;
+      }
+    }
+
+    .description {
+      font-size: 20px;
+      line-height: 40px;
+      color: var(--color-text-light);
+    }
+
+    .local {
+      font-size: 22px;
+      line-height: 40px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+
+      img {
+        max-height: 25px;
+      }
+    }
+  }
+
+  .other-results {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .other {
+      font-size: 18px;
+      text-align: center;
+      color: var(--color-text-light);
+      padding: 18px;
+
+      span {
+        font-size: 26px;
+        line-height: 40px;
+      }
+    }
+  }
+}
+
+.secondary {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 1fr;
+  grid-template-areas:
+    "header"
+    "link";
+  width: 100%;
+
+  .secondary-results {
+    grid-area: header;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    .other-secondary-results {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      text-align: left;
+      color: var(--color-text);
+      line-height: 25px;
+      padding: 18px;
+
+      p {
+        margin-left: 10px;
+      }
+
+      .icon-secondary-results {
+        font-size: 50px;
+      }
+
+      .humidity {
+        font-size: 35px;
+        color: aquamarine;
+      }
+    }
+  }
+
+  .go-maps {
+    grid-area: link;
+    justify-self: center;
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      font-weight: 700;
+      padding: 10px 15px;
+      border-radius: 12px;
+      border: 2px solid var(--color-text);
+      background-color: var(--color-content-bg);
+      display: flex;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    &:hover a {
+      color: var(--color-content-bg);
+      background-color: var(--color-text);
+    }
+  }
+}
+
+@media (max-width: 1250px) {
+  .main-grid {
+    margin-top: 10px;
+    grid-template-rows: 1fr;
+    grid-template-areas: "content";
+  }
+
+  .principal {
+    .result {
+      padding: 16px 0px;
+
+      img {
+        height: 50px;
+      }
+
+      h1 {
+        font-size: 60px;
+        span {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+      }
+
+      .description {
+        font-size: 16px;
+        line-height: 40px;
+        color: var(--color-text-light);
+      }
+
+      .local {
+        font-size: 16px;
+        line-height: 40px;
+        color: #ffffff;
+      }
+    }
+
+    .get-location {
+      padding: 1px 10px;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
+    .header {
+      form {
+        .snackbar {
+          padding: 1px 10px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .other-results {
+      .other {
+        font-size: 14px;
+
+        span {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .secondary {
+    .secondary-results {
+      .other-secondary-results {
+        flex-direction: row;
+        font-size: 12px;
+        text-align: center;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      .icon-secondary-results {
+        height: 30px;
+        margin-bottom: 5px;
+        align-items: center;
+        display: flex;
+      }
+    }
+
+    .go-maps {
+      a {
+        font-size: 14px;
+        padding: 7px 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  #main {
+    align-items: flex-start;
+  }
+
+  .background {
+    .img-background {
+      position: fixed;
+      height: 180vh;
+      width: auto;
+    }
+  }
+
+  .main-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr 70px;
+    grid-template-areas:
+      "title"
+      "content";
+  }
+
+  .content {
+    grid-area: content;
+    display: grid;
+    margin-bottom: 50px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr;
+    grid-template-areas:
+      "principal"
+      "secondary";
+    margin-bottom: 0;
+    padding: 30px 15px;
+  }
+
+  .principal {
+    justify-content: space-evenly;
+
+    .result {
+      padding: 25px 0px;
+
+      img {
+        height: 70px;
+      }
+
+      h1 {
+        font-size: 80px;
+        span {
+          font-size: 16px;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .get-location {
+      padding: 8px 10px;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
+    .header {
+      form {
+        .snackbar {
+          padding: 3px 10px;
+          font-size: 14px;
+        }
+      }
+
+      .cityInput {
+        font-size: 16px;
+      }
+    }
+
+    .other-results {
+      border-bottom: 1px solid var(--color-text-light);
+
+      .other {
+        span {
+          font-size: 20px;
+          line-height: 40px;
+        }
+      }
+    }
+  }
+
+  .secondary {
+    .secondary-results {
+      align-items: center;
+      flex-direction: row;
+      .icon-secondary-results {
+        height: 30px;
+        margin-bottom: 5px;
+        align-items: center;
+        display: flex;
+        p {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .go-maps {
+      a {
+        font-size: 16px;
+        padding: 10px 12px;
+      }
+    }
+  }
+}
